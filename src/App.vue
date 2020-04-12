@@ -18,5 +18,6 @@ export default {
 #App {
   background: #16191d;
   color: #d5dced;
+  font-size: 'Poppins' !important;
 }
 </style>

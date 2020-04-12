@@ -12,23 +12,22 @@
     <v-row justify="center">
       <v-col cols="12" md="5" sm="8" xs="8">
         <p class="display-2 font-weight-medium pb-3">Register today.</p>
+
         <v-form>
           <v-text-field
-            v-model="email"
+            class="input"
             dark
-            dense
             label="Email"
-            outlined
             color="orange"
             autofocus
             clearable
+            v-model="email"
           ></v-text-field>
 
           <v-text-field
-            v-model="password"
-            dense
+            class="input"
             dark
-            outlined
+            v-model="password"
             color="orange"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.emailMatch]"
@@ -39,24 +38,21 @@
           ></v-text-field>
 
           <v-text-field
+            class="input"
             v-model="confirmPassword"
-            dense
             dark
-            outlined
             color="orange"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.emailMatch]"
-            :type="showPassword ? 'text' : 'password'"
+            :type="showConfirmPassword ? 'text' : 'password'"
             label="Confirm Password"
             hint="At least 6 characters"
-            @click:append="showPassword = !showPassword"
+            @click:append="showConfirmPassword = !showConfirmPassword"
           ></v-text-field>
 
           <v-btn text large dark>Forgot Password?</v-btn>
 
-          <v-btn class="register-btn" dark block @click="register"
-            >Let's Go</v-btn
-          >
+          <v-btn class="register-btn" dark block @click="register">Let's Go</v-btn>
         </v-form>
       </v-col>
     </v-row>
@@ -65,6 +61,7 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   data() {
@@ -73,10 +70,11 @@ export default {
       password: '',
       confirmPassword: '',
       showPassword: false,
+      showConfirmPassword: false,
       rules: {
         required: value => !!value || 'Required.',
         min: v => v.length >= 8 || 'Min 8 characters',
-        emailMatch: () => "The email and password you entered don't match",
+        emailMatch: () => "The passwords you entered don't match",
       },
     };
   },
@@ -86,14 +84,27 @@ export default {
       this.$router.push({ path: 'home' });
     },
     register() {
-      console.log(this.email, this.password, this.confirmPassword);
       axios
         .post('https://localhost:44382/api/account/register', {
           Email: this.email,
           Password: this.password,
           ConfirmPassword: this.confirmPassword,
         })
-        .then(response => console.log(response));
+        .then(response => {
+          this.sweetAlert('success', 'Hurray!', response.data);
+          //   this.$router.push({ path: 'login' });
+        })
+        .catch(error => {
+          console.log(error.response.data);
+          // this.sweetAlert('error', 'Whoops!', error.response.data);
+        });
+    },
+    sweetAlert(icon, title, text) {
+      Swal.fire({
+        icon,
+        title,
+        text,
+      });
     },
   },
 };
@@ -119,5 +130,8 @@ export default {
   );
 
   box-shadow: 0 5px 15px rgba(182, 161, 92, 0.2);
+}
+.input {
+  box-shadow: -22px -22px 44px #101215, 22px 22px 44px #1c2025;
 }
 </style>
