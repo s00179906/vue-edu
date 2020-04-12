@@ -5,21 +5,13 @@
         <p class="d-block font-weight-medium title">MyEdu.</p>
       </v-col>
       <v-col class="d-flex justify-end">
-        <v-btn class="login-btn" large dark @click="login">Login</v-btn>
+        <v-btn class="login-btn" large dark @click="register">Register</v-btn>
       </v-col>
     </v-row>
 
     <v-row justify="center">
       <v-col cols="12" md="5" sm="8" xs="8">
-        <p class="display-2 font-weight-medium pb-3">Register today.</p>
-
-        <v-text-field
-          class="input"
-          v-model="fullName"
-          dark
-          color="orange"
-          label="Full Name"
-        ></v-text-field>
+        <p class="display-2 font-weight-medium pb-3">Welcome back.</p>
 
         <v-form>
           <v-text-field
@@ -30,6 +22,7 @@
             autofocus
             clearable
             v-model="email"
+            :rules="[rules.required]"
           ></v-text-field>
 
           <v-text-field
@@ -38,29 +31,16 @@
             v-model="password"
             color="orange"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.emailMatch]"
+            :rules="[rules.required]"
             :type="showPassword ? 'text' : 'password'"
             label="Password"
             hint="At least 6 characters"
             @click:append="showPassword = !showPassword"
           ></v-text-field>
 
-          <v-text-field
-            class="input"
-            v-model="confirmPassword"
-            dark
-            color="orange"
-            :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.emailMatch]"
-            :type="showConfirmPassword ? 'text' : 'password'"
-            label="Confirm Password"
-            hint="At least 6 characters"
-            @click:append="showConfirmPassword = !showConfirmPassword"
-          ></v-text-field>
+          <v-btn text large dark>Forgot Password?</v-btn>
 
-          <v-btn class="register-btn" dark block @click="register"
-            >Let's Go</v-btn
-          >
+          <v-btn class="register-btn" dark block @click="login">Login</v-btn>
         </v-form>
       </v-col>
     </v-row>
@@ -70,43 +50,47 @@
 <script>
 import axios from 'axios';
 import Swal from 'sweetalert2';
+// import querystring from 'querystring';
 
 export default {
   data() {
     return {
       email: '',
       password: '',
-      fullName: '',
       showPassword: false,
-      confirmPassword: '',
-      showConfirmPassword: false,
       rules: {
         required: value => !!value || 'Required.',
         min: v => v.length >= 8 || 'Min 8 characters',
-        emailMatch: () => "The passwords you entered don't match",
       },
     };
   },
   mounted() {},
   methods: {
-    login() {
-      this.$router.push({ path: 'login' });
-    },
     register() {
-      axios
-        .post('https://localhost:44382/api/account/register', {
-          Email: this.email,
-          Password: this.password,
-          ConfirmPassword: this.confirmPassword,
-        })
-        .then(response => {
-          this.sweetAlert('success', 'Hurray!', response.data);
-          //   this.$router.push({ path: 'login' });
-        })
-        .catch(error => {
-          console.log(error.response.data);
-          // this.sweetAlert('error', 'Whoops!', error.response.data);
-        });
+      this.$router.push({ path: '/' });
+    },
+    async login() {
+      const data = {
+        username: this.email,
+        password: this.password,
+        grant_type: 'password',
+      };
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        data,
+        url: 'https://localhost:44382/token',
+      };
+
+      try {
+        const response = await axios(options);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
     },
     sweetAlert(icon, title, text) {
       Swal.fire({
@@ -128,7 +112,7 @@ export default {
     rgba(42, 46, 51, 1) 0%,
     rgba(30, 34, 38, 1) 100%
   );
-  box-shadow: -17px -17px 34px #111417, 17px 17px 34px #1b1e23;
+  box-shadow: inset 9px 9px 17px #111417, inset -9px -9px 17px #1b1f23;
 }
 .register-btn {
   background-image: linear-gradient(
