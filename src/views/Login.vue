@@ -55,7 +55,6 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Register from '../components/Register.vue';
-// import querystring from 'querystring';
 
 export default {
   components: {

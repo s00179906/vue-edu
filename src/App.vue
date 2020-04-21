@@ -1,7 +1,7 @@
 <template>
   <v-app id="App" dark>
     <v-content>
-      <Navbar />
+      <Navbar v-if="showNavbar" />
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
   </v-app>
@@ -13,7 +13,17 @@ import Navbar from './components/Navbar.vue';
 export default {
   name: 'App',
   components: { Navbar },
-  data: () => ({}),
+  created() {
+    if (
+      this.$router.currentRoute.path !== '/register' &&
+      this.$router.currentRoute.path !== '/login'
+    ) {
+      this.showNavbar = true;
+    }
+  },
+  data: () => ({
+    showNavbar: false,
+  }),
 };
 </script>
 

@@ -16,6 +16,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    // beforeEnter: guardMyroute,
   },
   {
     path: '/register',
@@ -29,10 +30,17 @@ const routes = [
   },
 ];
 
+const isAuthenticated = !!localStorage.getItem('auth');
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });
+
+function guardMyroute(to, from, next) {
+  let isAuthenticated = !!localStorage.getItem('auth');
+  isAuthenticated ? next() : next('/login');
+}
 
 export default router;
