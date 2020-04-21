@@ -1,38 +1,39 @@
 <template>
-  <div>
-    <v-app-bar dense dark>
-      <v-toolbar-title>MyEdu.</v-toolbar-title>
+  <v-app-bar dark color="primary">
+    <v-toolbar-title>MyEdu.</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
+    <Search />
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+    <v-spacer></v-spacer>
 
-      <v-menu left bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
+    <v-btn text>ighaffar9900</v-btn>
 
-        <v-list>
-          <v-list-item @click="() => {}" color="danger">
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-app-bar>
-  </div>
+    <v-menu left bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on">
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item @click="() => {}" color="danger">
+          <v-list-item-title>Logout</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </v-app-bar>
 </template>
 
 <script>
-export default {};
+import Search from './Search.vue';
+
+export default {
+  components: {
+    Search,
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>
