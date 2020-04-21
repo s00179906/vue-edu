@@ -20,7 +20,6 @@ export default {
 <style lang="scss">
 #App {
   background: #16191d;
-  color: #d5dced;
   font-size: 'Poppins' !important;
 }
 </style>

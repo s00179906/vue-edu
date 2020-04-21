@@ -5,7 +5,7 @@
         <p class="d-block font-weight-medium title">MyEdu.</p>
       </v-col>
       <v-col class="d-flex justify-end">
-        <v-btn class="login-btn" large dark @click="login">Login</v-btn>
+        <Login />
       </v-col>
     </v-row>
 
@@ -14,7 +14,7 @@
         <p class="display-2 font-weight-medium pb-3">Register today.</p>
 
         <v-text-field
-          class="input"
+          outlined
           v-model="fullName"
           dark
           color="orange"
@@ -23,7 +23,7 @@
 
         <v-form>
           <v-text-field
-            class="input"
+            outlined
             dark
             label="Email"
             color="orange"
@@ -33,7 +33,7 @@
           ></v-text-field>
 
           <v-text-field
-            class="input"
+            outlined
             dark
             v-model="password"
             color="orange"
@@ -46,7 +46,7 @@
           ></v-text-field>
 
           <v-text-field
-            class="input"
+            outlined
             v-model="confirmPassword"
             dark
             color="orange"
@@ -58,9 +58,7 @@
             @click:append="showConfirmPassword = !showConfirmPassword"
           ></v-text-field>
 
-          <v-btn class="register-btn" dark block @click="register"
-            >Let's Go</v-btn
-          >
+          <v-btn color="red" dark block @click="register">Let's Go</v-btn>
         </v-form>
       </v-col>
     </v-row>
@@ -70,8 +68,12 @@
 <script>
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Login from '../components/Login.vue';
 
 export default {
+  components: {
+    Login,
+  },
   data() {
     return {
       email: '',
@@ -87,11 +89,7 @@ export default {
       },
     };
   },
-  mounted() {},
   methods: {
-    login() {
-      this.$router.push({ path: 'login' });
-    },
     register() {
       axios
         .post('https://localhost:44382/api/account/register', {
@@ -119,28 +117,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.login-btn {
-  border-radius: 10px;
-  background: rgb(42, 46, 51);
-  background: linear-gradient(
-    90deg,
-    rgba(42, 46, 51, 1) 0%,
-    rgba(30, 34, 38, 1) 100%
-  );
-  box-shadow: -17px -17px 34px #111417, 17px 17px 34px #1b1e23;
-}
-.register-btn {
-  background-image: linear-gradient(
-    to right,
-    #ffb75e 0%,
-    #ed8f03 51%,
-    #ffb75e 100%
-  );
-
-  box-shadow: 0 5px 15px rgba(182, 161, 92, 0.2);
-}
-.input {
-  box-shadow: -22px -22px 44px #101215, 22px 22px 44px #1c2025;
-}
-</style>
+<style lang="scss" scoped></style>

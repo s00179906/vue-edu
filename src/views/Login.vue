@@ -5,7 +5,7 @@
         <p class="d-block font-weight-medium title">MyEdu.</p>
       </v-col>
       <v-col class="d-flex justify-end">
-        <v-btn class="login-btn" large dark @click="register">Register</v-btn>
+        <Register />
       </v-col>
     </v-row>
 
@@ -15,6 +15,7 @@
 
         <v-form>
           <v-text-field
+            outlined
             class="input"
             dark
             label="Email"
@@ -26,6 +27,7 @@
           ></v-text-field>
 
           <v-text-field
+            outlined
             class="input"
             dark
             v-model="password"
@@ -40,7 +42,9 @@
 
           <v-btn text large dark>Forgot Password?</v-btn>
 
-          <v-btn class="register-btn" dark block @click="login">Login</v-btn>
+          <v-btn class="login-btn" color="red" dark block @click="login"
+            >Login</v-btn
+          >
         </v-form>
       </v-col>
     </v-row>
@@ -50,9 +54,13 @@
 <script>
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Register from '../components/Register.vue';
 // import querystring from 'querystring';
 
 export default {
+  components: {
+    Register,
+  },
   data() {
     return {
       email: '',
@@ -64,11 +72,7 @@ export default {
       },
     };
   },
-  mounted() {},
   methods: {
-    register() {
-      this.$router.push({ path: '/' });
-    },
     async login() {
       const data = {
         username: this.email,
@@ -105,26 +109,6 @@ export default {
 
 <style lang="scss" scoped>
 .login-btn {
-  border-radius: 10px;
-  background: rgb(42, 46, 51);
-  background: linear-gradient(
-    90deg,
-    rgba(42, 46, 51, 1) 0%,
-    rgba(30, 34, 38, 1) 100%
-  );
-  box-shadow: inset 9px 9px 17px #111417, inset -9px -9px 17px #1b1f23;
-}
-.register-btn {
-  background-image: linear-gradient(
-    to right,
-    #ffb75e 0%,
-    #ed8f03 51%,
-    #ffb75e 100%
-  );
-
-  box-shadow: 0 5px 15px rgba(182, 161, 92, 0.2);
-}
-.input {
-  box-shadow: -22px -22px 44px #101215, 22px 22px 44px #1c2025;
+  box-shadow: 0 5px 15px rgba(182, 92, 92, 0.2);
 }
 </style>

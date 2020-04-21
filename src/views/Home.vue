@@ -21,6 +21,10 @@
         <Courses :course="course" />
       </v-col>
     </v-row>
+
+    <v-row>
+      <VueSpeech />
+    </v-row>
   </v-container>
   <!-- <v-card class="mx-auto" dark>
     <v-list dark>
@@ -40,10 +44,12 @@
 <script>
 import axios from 'axios';
 import Courses from '../components/Courses.vue';
+import VueSpeech from '../components/VueSpeech.vue';
 
 export default {
   components: {
     Courses,
+    VueSpeech,
   },
   data() {
     return {
