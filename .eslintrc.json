@@ -3,7 +3,7 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["plugin:vue/essential", "airbnb-base"],
+  "extends": ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -17,6 +17,7 @@
     "arrow-parens": "off",
     "no-return-assign": "off",
     "no-console": "off",
-    "no-unused-expressions": "warn"
+    "no-unused-expressions": "warn",
+    "linebreak-style": "off"
   }
 }

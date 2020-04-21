@@ -18,9 +18,7 @@
       </template>
 
       <v-list>
-        <v-list-item @click="() => {}" color="danger">
-          <v-list-item-title>Logout</v-list-item-title>
-        </v-list-item>
+        <Logout />
       </v-list>
     </v-menu>
   </v-app-bar>
@@ -28,10 +26,12 @@
 
 <script>
 import Search from './Search.vue';
+import Logout from './Logout.vue';
 
 export default {
   components: {
     Search,
+    Logout,
   },
 };
 </script>
