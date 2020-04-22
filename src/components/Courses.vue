@@ -6,7 +6,7 @@
       </p>
     </div>
 
-    <v-btn text block>{{ course.title }}</v-btn>
+    <Topics />
 
     <v-card-actions>
       <v-btn color="info" text>
@@ -19,10 +19,16 @@
 </template>
 
 <script>
+import Topics from '@/components/Topics.vue';
+
 export default {
   props: {
     course: Object,
   },
+  components: {
+    Topics,
+  },
+
   created() {
     console.log(this.course);
   },

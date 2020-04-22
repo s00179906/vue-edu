@@ -26,19 +26,6 @@
       <VueSpeech />
     </v-row>
   </v-container>
-  <!-- <v-card class="mx-auto" dark>
-    <v-list dark>
-      <v-subheader>Questions</v-subheader>
-
-      <v-list-item-group v-model="questions" color="primary">
-        <v-list-item v-for="(question, i) in questions" :key="i">
-          <v-list-item-content>
-            <v-list-item-title v-text="question.title"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </v-card>-->
 </template>
 
 <script>
