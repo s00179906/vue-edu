@@ -1,5 +1,5 @@
 <template>
-  <v-card class="card mx-auto" max-width="500px" dark>
+  <v-card class="card mx-auto" max-width="500px" dark color="primary">
     <div style="background-color: orange;">
       <p class="font-weight-bold display-1 text-center py-3">
         {{ course.category }}

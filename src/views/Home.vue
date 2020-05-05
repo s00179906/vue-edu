@@ -21,48 +21,28 @@
         <Courses :course="course" />
       </v-col>
     </v-row>
-
-    <v-row>
-      <VueSpeech />
-    </v-row>
   </v-container>
 </template>
 
 <script>
 import axios from 'axios';
 import Courses from '../components/Courses.vue';
-import VueSpeech from '../components/VueSpeech.vue';
 
 export default {
   components: {
     Courses,
-    VueSpeech,
   },
-  data() {
-    return {
-      questions: [],
-      courses: [],
-    };
-  },
+  data: () => ({
+    courses: [],
+  }),
   created() {
-    axios
-      .get('https://localhost:44382/api/questions')
-      .then(response => {
-        console.log(response.data);
-        this.questions = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
     axios
       .get('https://localhost:44382/api/courses')
       .then(response => {
         console.log(response.data);
         this.courses = response.data;
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => console.log(error));
   },
 };
 </script>

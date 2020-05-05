@@ -5,18 +5,21 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Register from '../views/Register.vue';
 import Login from '../views/Login.vue';
+import Topic from '../views/Topic.vue';
 
 import VueSpeech from 'vue-speech';
+import VueTextToSpeech from 'vue-text-to-speech';
 
 Vue.use(VueSpeech);
 Vue.use(VueRouter);
+Vue.use(VueTextToSpeech);
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    // beforeEnter: guardMyroute,
+    beforeEnter: guardMyroute,
   },
   {
     path: '/register',
@@ -27,6 +30,12 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/topic/:id',
+    name: 'Topic',
+    component: Topic,
+    beforeEnter: guardMyroute,
   },
 ];
 

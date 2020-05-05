@@ -1,8 +1,8 @@
 <template>
-  <v-list>
+  <v-list color="transparent">
     <v-list-item v-for="(topic, index) of topics" :key="index">
       <v-list-item-content>
-        <v-btn text block @click="getTopic(topic)">{{
+        <v-btn text block @click="getTopic(topic.topicID)">{{
           topic.topicTitle
         }}</v-btn>
       </v-list-item-content>
@@ -30,8 +30,8 @@ export default {
     topics: null,
   }),
   methods: {
-    getTopic(topic) {
-      console.log(topic);
+    getTopic(id) {
+      this.$router.push({ name: 'Topic', params: { id } });
     },
   },
 };

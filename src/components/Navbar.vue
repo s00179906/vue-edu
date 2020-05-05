@@ -1,10 +1,14 @@
 <template>
   <v-app-bar dark color="primary">
-    <v-toolbar-title>MyEdu.</v-toolbar-title>
+    <v-toolbar-title>
+      <v-btn @click="goToHome" text>
+        MyEdu.
+      </v-btn>
+    </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
-    <Search />
+    <Levelbar />
 
     <v-spacer></v-spacer>
 
@@ -25,13 +29,18 @@
 </template>
 
 <script>
-import Search from './Search.vue';
+import Levelbar from './Levelbar.vue';
 import Logout from './Logout.vue';
 
 export default {
   components: {
-    Search,
+    Levelbar,
     Logout,
+  },
+  methods: {
+    goToHome() {
+      this.$router.push('/');
+    },
   },
 };
 </script>
