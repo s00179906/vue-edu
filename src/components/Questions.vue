@@ -45,13 +45,15 @@
     </v-row>
 
     <v-row justify="center">
-      <v-btn @click="answerQuestion">Check answer</v-btn>
+      <v-btn @click="answerQuestion" :disabled="!answer">Submit answer</v-btn>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   props: {
@@ -65,7 +67,13 @@ export default {
   created() {
     this.choosenQuestion = this.questions[this.questionIndex];
   },
+  computed: {
+    ...mapState({
+      user: state => state.edu.user,
+    }),
+  },
   methods: {
+    ...mapActions['fetchUser'],
     nextQuestion() {
       console.log(this.questions.length, this.questionIndex);
 
@@ -81,17 +89,24 @@ export default {
     backToCourses() {
       this.$router.push({ path: '/' });
     },
-    answerQuestion() {
-      if (this.answer === null) {
-        this.presentToast('error', 'Please answer the question 😟');
-      } else {
-        if (this.answer === this.choosenQuestion.correctAnswer) {
+    async answerQuestion() {
+      if (this.answer === this.choosenQuestion.correctAnswer) {
+        try {
+          const response = await axios.post(
+            `https://localhost:44382/api/questions/answer/${this.choosenQuestion.questionID}?userId=${this.user.Id}&answer=${this.answer}`,
+          );
+          console.log(response.data);
           this.presentToast('success', 'Correct Answer 🙂');
-          this.nextQuestion();
-          this.answer = null;
-        } else {
-          this.presentToast('error', 'Incorrect Answer 😟');
+          this.$store.dispatch('login');
+        } catch (error) {
+          console.log(error);
         }
+
+        this.nextQuestion();
+        this.answer = null;
+        this.$store.dispatch('login');
+      } else {
+        this.presentToast('error', 'Incorrect Answer 😟');
       }
     },
     presentToast(icon, title) {

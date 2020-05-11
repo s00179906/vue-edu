@@ -9,21 +9,16 @@
 
 <script>
 import Navbar from './components/Navbar.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'App',
   components: { Navbar },
-  created() {
-    if (
-      this.$router.currentRoute.path !== '/register' &&
-      this.$router.currentRoute.path !== '/login'
-    ) {
-      this.showNavbar = true;
-    }
+  computed: {
+    ...mapState({
+      showNavbar: state => state.edu.showNavbar,
+    }),
   },
-  data: () => ({
-    showNavbar: false,
-  }),
 };
 </script>
 

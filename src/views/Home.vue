@@ -39,10 +39,16 @@ export default {
     axios
       .get('https://localhost:44382/api/courses')
       .then(response => {
-        console.log(response.data);
         this.courses = response.data;
       })
       .catch(error => console.log(error));
+
+    const payload = {
+      email: 'ibrah@gmail.com',
+      password: 'P0wer@de22',
+    };
+    this.$store.dispatch('login', payload);
+    this.$store.commit('toggleNavbar', true);
   },
 };
 </script>

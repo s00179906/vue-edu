@@ -7,14 +7,6 @@
     </div>
 
     <Topics />
-
-    <v-card-actions>
-      <v-btn color="info" text>
-        Learn >
-      </v-btn>
-
-      <v-spacer></v-spacer>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -27,10 +19,6 @@ export default {
   },
   components: {
     Topics,
-  },
-
-  created() {
-    console.log(this.course);
   },
 };
 </script>

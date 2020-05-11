@@ -1,5 +1,5 @@
 <template>
-  <v-btn class="login-btn" large dark @click="login">Login</v-btn>
+  <v-btn large dark @click="login" color="red" outlined>Login</v-btn>
 </template>
 
 <script>

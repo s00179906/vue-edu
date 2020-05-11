@@ -42,7 +42,7 @@
 
           <v-btn text large dark>Forgot Password?</v-btn>
 
-          <v-btn class="login-btn" color="red" dark block @click="login"
+          <v-btn class="login-btn" color="red" dark block @click="loginUser"
             >Login</v-btn
           >
         </v-form>
@@ -53,9 +53,8 @@
 
 <script>
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import Register from '../components/Register.vue';
-import qs from 'qs';
+import { mapGetters, mapActions, mapState, Store, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -73,53 +72,15 @@ export default {
     };
   },
   methods: {
-    async login() {
-      const data = qs.stringify({
-        username: this.email,
+    ...mapActions['login'],
+    loginUser() {
+      const payload = {
+        email: this.email,
         password: this.password,
-        grant_type: 'password',
-      });
-
-      const options = {
-        method: 'post',
-        url: 'https://localhost:44382/token',
-        data,
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
       };
-
-      try {
-        const response = await axios(options);
-        localStorage.setItem('auth', JSON.stringify(response.data));
-        // this.$router.push({ path: '/' });
-        this.getUserId(response.data.access_token);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    sweetAlert(icon, title, text) {
-      Swal.fire({
-        icon,
-        title,
-        text,
-      });
-    },
-    async getUserId(token) {
-      try {
-        const response = await axios.get(
-          'https://localhost:44382/api/account/userinfo',
-          { params: {}, headers: { Authorization: `Bearer ${token}` } },
-        );
-        const r = await axios.get(
-          `https://localhost:44382/api/account/${response.data.UserId}`,
-          { params: {}, headers: { Authorization: `Bearer ${token}` } },
-        );
-        console.log(r.data);
-      } catch (error) {
-        console.log(error);
-      }
+      this.$store.dispatch('login', payload);
+      this.$store.commit('toggleNavbar', true);
+      this.$router.push({ path: '/' });
     },
   },
 };

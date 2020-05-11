@@ -7,12 +7,10 @@
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
-
-    <Levelbar />
-
+    <Levelbar v-if="user" :userXP="user.XP" :userLevel="user.Level" />
     <v-spacer></v-spacer>
 
-    <v-btn text>ighaffar9900</v-btn>
+    <v-btn text v-if="user">{{ user.FullName }}</v-btn>
 
     <v-menu left bottom>
       <template v-slot:activator="{ on }">
@@ -21,7 +19,7 @@
         </v-btn>
       </template>
 
-      <v-list>
+      <v-list color="red">
         <Logout />
       </v-list>
     </v-menu>
@@ -31,6 +29,7 @@
 <script>
 import Levelbar from './Levelbar.vue';
 import Logout from './Logout.vue';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -41,6 +40,11 @@ export default {
     goToHome() {
       this.$router.push('/');
     },
+  },
+  computed: {
+    ...mapState({
+      user: state => state.edu.user,
+    }),
   },
 };
 </script>

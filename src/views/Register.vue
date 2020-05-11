@@ -38,10 +38,10 @@
             v-model="password"
             color="orange"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.emailMatch]"
+            :rules="[rules.required, rules.passwordMatch]"
             :type="showPassword ? 'text' : 'password'"
             label="Password"
-            hint="At least 6 characters"
+            hint="At least 6 characters, must include special characters, capital letters & numbers"
             @click:append="showPassword = !showPassword"
           ></v-text-field>
 
@@ -51,10 +51,10 @@
             dark
             color="orange"
             :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.emailMatch]"
+            :rules="[rules.required, rules.passwordMatch]"
             :type="showConfirmPassword ? 'text' : 'password'"
             label="Confirm Password"
-            hint="At least 6 characters"
+            hint="At least 6 characters, must include special characters, capital letters & numbers"
             @click:append="showConfirmPassword = !showConfirmPassword"
           ></v-text-field>
 
@@ -85,7 +85,10 @@ export default {
       rules: {
         required: value => !!value || 'Required.',
         min: v => v.length >= 8 || 'Min 8 characters',
-        emailMatch: () => "The passwords you entered don't match",
+        passwordMatch: () =>
+          this.password !== this.confirmPassword
+            ? "The passwords you entered don't match"
+            : null,
       },
     };
   },

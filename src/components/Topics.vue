@@ -18,7 +18,6 @@ export default {
     axios
       .get('https://localhost:44382/api/topics')
       .then(response => {
-        console.log(response.data);
         this.topics = response.data;
       })
       .catch(error => {
