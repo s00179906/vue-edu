@@ -13,13 +13,13 @@
       <v-col cols="12" md="5" sm="8" xs="8">
         <p class="display-2 font-weight-medium pb-3">Register today.</p>
 
-        <v-text-field
+        <!-- <v-text-field
           outlined
           v-model="fullName"
           dark
           color="orange"
           label="Full Name"
-        ></v-text-field>
+        ></v-text-field> -->
 
         <v-form>
           <v-text-field
@@ -28,6 +28,7 @@
             label="Email"
             color="orange"
             autofocus
+            :rules="[rules.required]"
             clearable
             v-model="email"
           ></v-text-field>
@@ -38,10 +39,10 @@
             v-model="password"
             color="orange"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.passwordMatch]"
+            :rules="[rules.required, rules.min, passwordMatcher]"
             :type="showPassword ? 'text' : 'password'"
             label="Password"
-            hint="At least 6 characters, must include special characters, capital letters & numbers"
+            hint="Must include special characters, capital letters & numbers"
             @click:append="showPassword = !showPassword"
           ></v-text-field>
 
@@ -51,14 +52,21 @@
             dark
             color="orange"
             :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.passwordMatch]"
+            :rules="[rules.required, rules.min, passwordMatcher]"
             :type="showConfirmPassword ? 'text' : 'password'"
             label="Confirm Password"
-            hint="At least 6 characters, must include special characters, capital letters & numbers"
+            hint="Must include special characters, capital letters & numbers"
             @click:append="showConfirmPassword = !showConfirmPassword"
           ></v-text-field>
 
-          <v-btn color="red" dark block @click="register">Let's Go</v-btn>
+          <v-btn
+            color="red"
+            dark
+            block
+            @click="register"
+            :disabled="!validateForm"
+            >Let's Go</v-btn
+          >
         </v-form>
       </v-col>
     </v-row>
@@ -84,13 +92,22 @@ export default {
       showConfirmPassword: false,
       rules: {
         required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 8 characters',
-        passwordMatch: () =>
-          this.password !== this.confirmPassword
-            ? "The passwords you entered don't match"
-            : null,
+        min: v => v.length >= 6 || 'Must be atleast 6 characters',
       },
     };
+  },
+  computed: {
+    validateForm() {
+      let valid = true;
+      return valid
+        ? this.password && this.email && this.confirmPassword
+        : (valid = false);
+    },
+    passwordMatcher() {
+      return this.password != this.confirmPassword
+        ? "The password's you have entered don't match"
+        : '';
+    },
   },
   methods: {
     register() {
@@ -102,13 +119,14 @@ export default {
         })
         .then(response => {
           this.sweetAlert('success', 'Hurray!', response.data);
-          //   this.$router.push({ path: 'login' });
+          this.$router.push({ path: 'login' });
         })
         .catch(error => {
-          console.log(error.response.data);
+          console.log(error.response.data.ModelState);
           // this.sweetAlert('error', 'Whoops!', error.response.data);
         });
     },
+
     sweetAlert(icon, title, text) {
       Swal.fire({
         icon,

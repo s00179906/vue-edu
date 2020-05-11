@@ -25,6 +25,9 @@ export default {
 <style lang="scss">
 #App {
   background: #16191d;
-  font-size: 'Poppins' !important;
+  font-family: 'Poppins' !important;
+}
+.swal2-container {
+  font-family: 'Poppins' !important;
 }
 </style>
