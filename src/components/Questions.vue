@@ -1,9 +1,11 @@
 <template>
   <v-container>
-    <v-row>
-      <v-btn text @click="backToCourses">
-        <v-icon>mdi-arrow-left</v-icon> Back
+    <v-row justify="space-between">
+      <v-btn text @click="backToCourses" icon>
+        <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
+
+      <v-btn outlined color="success"> <v-icon>mdi-plus</v-icon> 25 XP </v-btn>
     </v-row>
 
     <v-row justify="center" align="center">
@@ -45,7 +47,9 @@
     </v-row>
 
     <v-row justify="center">
-      <v-btn @click="answerQuestion" :disabled="!answer">Submit answer</v-btn>
+      <v-btn @click="answerQuestion" :disabled="!answer" color="info"
+        >Submit answer</v-btn
+      >
     </v-row>
   </v-container>
 </template>

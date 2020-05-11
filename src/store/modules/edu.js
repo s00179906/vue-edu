@@ -33,21 +33,23 @@ const actions = {
 
       localStorage.setItem('auth', JSON.stringify(auth.data));
 
-      const userInfo = await axios.get(
-        'https://localhost:44382/api/account/userinfo',
-        {
+      const userInfo = await axios
+        .get('https://localhost:44382/api/account/userinfo', {
           params: {},
           headers: { Authorization: `Bearer ${auth.data.access_token}` },
-        },
-      );
+        })
+        .catch(error => {
+          console.log(error);
+        });
 
-      const account = await axios.get(
-        `https://localhost:44382/api/account/${userInfo.data.UserId}`,
-        {
+      const account = await axios
+        .get(`https://localhost:44382/api/account/${userInfo.data.UserId}`, {
           params: {},
           headers: { Authorization: `Bearer ${auth.data.access_token}` },
-        },
-      );
+        })
+        .catch(error => {
+          console.log(error);
+        });
 
       commit('setUserAuth', account.data);
     } catch (error) {

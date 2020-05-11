@@ -78,9 +78,11 @@ export default {
         email: this.email,
         password: this.password,
       };
+
       this.$store.dispatch('login', payload);
-      this.$store.commit('toggleNavbar', true);
+
       this.$router.push({ path: '/' });
+      // this.$store.commit('toggleNavbar', true);
     },
   },
 };

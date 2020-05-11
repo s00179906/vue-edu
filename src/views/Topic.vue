@@ -1,5 +1,9 @@
 <template>
-  <Questions :questions="questions" v-if="questions !== null" />
+  <Questions
+    :questions="questions"
+    v-if="questions !== null"
+    :topicID="topicID"
+  />
 </template>
 
 <script>
@@ -11,15 +15,15 @@ export default {
     Questions,
   },
   created() {
+    this.topicID = this.$route.params.id;
     axios
-      .get(
-        `https://localhost:44382/api/questions/topic/${this.$route.params.id}`,
-      )
+      .get(`https://localhost:44382/api/questions/topic/${this.topicID}`)
       .then(response => (this.questions = response.data))
       .catch(error => console.log(error));
   },
   data: () => ({
     questions: null,
+    topicID: null,
   }),
   methods: {},
 };
