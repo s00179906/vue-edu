@@ -7,7 +7,7 @@
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
-    <Levelbar v-if="user" :userXP="user.XP" :userLevel="user.Level" />
+    <Levelbar v-if="user" />
     <v-spacer></v-spacer>
 
     <v-btn outlined color="info" class="mx-2" @click="createNewQuestion">

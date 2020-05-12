@@ -82,6 +82,8 @@ export default {
       this.$store.dispatch('login', payload);
 
       this.$router.push({ path: '/' });
+      this.$store.dispatch('updateUserXP');
+
       // this.$store.commit('toggleNavbar', true);
     },
   },

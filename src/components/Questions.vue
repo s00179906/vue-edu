@@ -74,6 +74,8 @@ export default {
   computed: {
     ...mapState({
       user: state => state.edu.user,
+      userXP: state => state.edu.userXP,
+      xpOfUsersLevel: state => state.edu.xpOfUsersLevel,
     }),
   },
   methods: {
@@ -99,16 +101,34 @@ export default {
           const response = await axios.post(
             `https://localhost:44382/api/questions/answer/${this.choosenQuestion.questionID}?userId=${this.user.Id}&answer=${this.answer}`,
           );
-          console.log(response.data);
           this.presentToast('success', 'Correct Answer 🙂');
-          this.$store.dispatch('login');
+          this.nextQuestion();
+          this.answer = null;
+
+          this.$store.dispatch('fetchUser');
+
+          this.$store.dispatch('updateUserXP');
+
+          console.log(this.userXP);
+
+          if (this.user.Level === (this.user.Level += 1)) {
+            Swal.fire({
+              title: "You've leveled up!",
+              width: 600,
+              padding: '3em',
+              background: '#fff url(/images/trees.png)',
+              backdrop: `
+                      rgba(0,0,123,0.4)
+                      url("/images/nyan-cat.gif")
+                      left top
+                      no-repeat
+                                  `,
+            });
+            this.$store.commit('resetXPBar', 0);
+          }
         } catch (error) {
           console.log(error);
         }
-
-        this.nextQuestion();
-        this.answer = null;
-        this.$store.dispatch('login');
       } else {
         this.presentToast('error', 'Incorrect Answer 😟');
       }

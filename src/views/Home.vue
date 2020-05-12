@@ -48,7 +48,6 @@ export default {
       password: 'P0wer@de22',
     };
     this.$store.dispatch('login', payload);
-    this.$store.commit('toggleNavbar', true);
   },
 };
 </script>

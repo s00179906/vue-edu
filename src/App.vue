@@ -19,6 +19,9 @@ export default {
       showNavbar: state => state.edu.showNavbar,
     }),
   },
+  created() {
+    this.$store.commit('toggleNavbar', true);
+  },
 };
 </script>
 

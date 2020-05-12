@@ -47,7 +47,7 @@ const router = new VueRouter({
 
 function guardMyroute(to, from, next) {
   let isAuthenticated = localStorage.hasOwnProperty('auth');
-  console.log(isAuthenticated);
+
   isAuthenticated ? next() : next('/login');
 }
 
