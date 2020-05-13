@@ -6,12 +6,12 @@
       <v-progress-linear
         class="progress-bar"
         :value="userXP"
-        color="orange"
+        color="purple"
         height="30px"
       ></v-progress-linear>
     </v-col>
 
-    <v-col md="1" class="text-left">{{ test() }}</v-col>
+    <v-col md="1" class="text-left">{{ nextLevel() }}</v-col>
   </v-row>
 </template>
 
@@ -26,12 +26,11 @@ export default {
       userXP: state => state.edu.userXP,
     }),
   },
-  async created() {
+  created() {
     this.$store.dispatch('updateUserXP');
-    console.log('THE USER XP ON CREATED', this.userXP);
   },
   methods: {
-    test() {
+    nextLevel() {
       return this.user.Level + 1;
     },
   },

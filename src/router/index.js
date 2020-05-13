@@ -3,9 +3,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Register from '../views/Register.vue';
 import Login from '../views/Login.vue';
 import Topic from '../views/Topic.vue';
+import Register from '../views/Register.vue';
+import Achievements from '../views/Achievements.vue';
 
 import VueSpeech from 'vue-speech';
 import VueTextToSpeech from 'vue-text-to-speech';
@@ -30,6 +31,12 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/achievements',
+    name: 'Achievements',
+    component: Achievements,
+    beforeEnter: guardMyroute,
   },
   {
     path: '/topic/:id',

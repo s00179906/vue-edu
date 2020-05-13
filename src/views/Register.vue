@@ -17,7 +17,7 @@
           outlined
           v-model="fullName"
           dark
-          color="orange"
+          color="purple"
           label="Full Name"
         ></v-text-field> -->
 
@@ -26,7 +26,7 @@
             outlined
             dark
             label="Email"
-            color="orange"
+            color="purple"
             autofocus
             :rules="[rules.required]"
             clearable
@@ -37,7 +37,7 @@
             outlined
             dark
             v-model="password"
-            color="orange"
+            color="purple"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.min, passwordMatcher]"
             :type="showPassword ? 'text' : 'password'"
@@ -50,7 +50,7 @@
             outlined
             v-model="confirmPassword"
             dark
-            color="orange"
+            color="purple"
             :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.min, passwordMatcher]"
             :type="showConfirmPassword ? 'text' : 'password'"

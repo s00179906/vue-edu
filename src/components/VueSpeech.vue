@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <vue-speech @onTranscriptionEnd="onEnd" class="d-none" /> -->
     <!-- <vue-speech /> -->
   </div>
 </template>

@@ -19,7 +19,7 @@
             class="input"
             dark
             label="Email"
-            color="orange"
+            color="purple"
             autofocus
             clearable
             v-model="email"
@@ -31,7 +31,7 @@
             class="input"
             dark
             v-model="password"
-            color="orange"
+            color="purple"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required]"
             :type="showPassword ? 'text' : 'password'"
@@ -42,7 +42,7 @@
 
           <v-btn text large dark>Forgot Password?</v-btn>
 
-          <v-btn class="login-btn" color="red" dark block @click="loginUser"
+          <v-btn class="login-btn" color="purple" dark block @click="loginUser"
             >Login</v-btn
           >
         </v-form>
@@ -74,17 +74,12 @@ export default {
   methods: {
     ...mapActions['login'],
     loginUser() {
-      const payload = {
+      this.$store.dispatch('login', {
         email: this.email,
         password: this.password,
-      };
-
-      this.$store.dispatch('login', payload);
-
+      });
       this.$router.push({ path: '/' });
-      this.$store.dispatch('updateUserXP');
-
-      // this.$store.commit('toggleNavbar', true);
+      // this.$store.dispatch('updateUserXP');
     },
   },
 };

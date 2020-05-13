@@ -17,10 +17,19 @@ export default {
   computed: {
     ...mapState({
       showNavbar: state => state.edu.showNavbar,
+      user: state => state.edu.user,
     }),
   },
   created() {
-    this.$store.commit('toggleNavbar', true);
+    const isLoggedIn = !!localStorage.getItem('auth');
+
+    if (isLoggedIn) {
+      if (this.user === null) {
+        this.$store.dispatch('fetchUser');
+      }
+
+      this.$store.commit('toggleNavbar', true);
+    }
   },
 };
 </script>
@@ -32,5 +41,17 @@ export default {
 }
 .swal2-container {
   font-family: 'Poppins' !important;
+}
+.swal2-popup {
+  background: #16191d !important;
+}
+.swal2-title {
+  color: #2196f3;
+}
+.swal2-input,
+.swal2-input[type='number'] {
+  border-color: #2196f3;
+  width: 100%;
+  max-width: 100%;
 }
 </style>

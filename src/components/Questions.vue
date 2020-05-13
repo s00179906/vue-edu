@@ -1,11 +1,10 @@
 <template>
   <v-container>
     <v-row justify="space-between">
-      <v-btn text @click="backToCourses" icon>
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-
-      <v-btn outlined color="success"> <v-icon>mdi-plus</v-icon> 25 XP </v-btn>
+      <p class="title">Question. {{ questionIndexFixed() }}</p>
+      <v-btn color="success" text>
+        <v-icon>mdi-plus</v-icon>{{ choosenQuestion.XP }}</v-btn
+      >
     </v-row>
 
     <v-row justify="center" align="center">
@@ -27,9 +26,10 @@
             <v-text-field
               dark
               v-model="answer"
-              color="orange"
+              color="info"
               type="number"
               autofocus
+              outlined
             ></v-text-field>
           </v-col>
         </v-row>
@@ -81,16 +81,16 @@ export default {
   methods: {
     ...mapActions['fetchUser'],
     nextQuestion() {
-      console.log(this.questions.length, this.questionIndex);
-
-      if (!this.questionIndex <= this.questions.length) {
+      if (this.questionIndex != this.questions.length - 1) {
         this.questionIndex++;
         this.choosenQuestion = this.questions[this.questionIndex];
       }
     },
     previousQuestion() {
-      this.questionIndex--;
-      this.choosenQuestion = this.questions[this.questionIndex];
+      if (this.questionIndex !== 0) {
+        this.questionIndex--;
+        this.choosenQuestion = this.questions[this.questionIndex];
+      }
     },
     backToCourses() {
       this.$router.push({ path: '/' });
@@ -150,6 +150,10 @@ export default {
         icon,
         title,
       });
+    },
+    questionIndexFixed() {
+      let s = this.questionIndex;
+      return (s += 1);
     },
   },
 };

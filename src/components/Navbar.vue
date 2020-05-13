@@ -1,17 +1,24 @@
 <template>
   <v-app-bar dark color="primary">
     <v-toolbar-title>
-      <v-btn @click="goToHome" text>
+      <v-btn @click="changeRoute('/')" text>
         MyEdu.
       </v-btn>
     </v-toolbar-title>
 
-    <v-spacer></v-spacer>
     <Levelbar v-if="user" />
-    <v-spacer></v-spacer>
 
     <v-btn outlined color="info" class="mx-2" @click="createNewQuestion">
       New Question
+    </v-btn>
+
+    <v-btn
+      outlined
+      color="purple"
+      class="mx-2"
+      @click="changeRoute('/achievements')"
+    >
+      Achievements
     </v-btn>
 
     <v-menu left bottom>
@@ -41,17 +48,19 @@ export default {
     Logout,
   },
   methods: {
-    goToHome() {
-      this.$router.push('/');
+    changeRoute(route) {
+      if (this.$router.currentRoute.path != route) {
+        this.$router.push(route);
+      }
     },
     async createNewQuestion() {
       const { value: formValues } = await Swal.fire({
         title: 'Create your Question!',
         html:
-          '<select id="courses" class="swal2-input"><option value="1">Math</option></select>' +
-          '<input id="swal-input1" class="swal2-input" placeholder="Number" type="number">' +
+          '<select id="courses" class="swal2-input"> <option value="" disabled selected>Select your option</option><option value="1">Math</option></select>' +
+          '<input id="swal-input1" class="swal2-input" placeholder="Pick a number" type="number">' +
           '<select id="operators" class="swal2-input"><option value="+">+</option><option value="-">-</option><option value="*">x</option><option value="/">÷</option</select>' +
-          '<input id="swal-input2" class="swal2-input" placeholder="Number" type="number">',
+          '<input id="swal-input2" class="swal2-input" placeholder="Pick a number" type="number">',
         focusConfirm: false,
         preConfirm: () => {
           return [

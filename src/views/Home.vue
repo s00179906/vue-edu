@@ -5,14 +5,14 @@
         WELCOME TO MyEdu!
       </p>
       <p class="title text-center">
-        Choose any course below to get started.
+        Choose any topic below to get started.
       </p>
     </header>
 
     <v-row justify="center">
       <v-col
         cols="12"
-        md="4"
+        md="8"
         sm="12"
         xs="12"
         v-for="(course, index) in courses"
@@ -21,20 +21,33 @@
         <Courses :course="course" />
       </v-col>
     </v-row>
+    <v-row justify="center">
+      <v-col cols="12" md="8" sm="12" xs="12">
+        <Trivia />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import axios from 'axios';
 import Courses from '../components/Courses.vue';
+import Trivia from '../components/Trivia.vue';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     Courses,
+    Trivia,
   },
   data: () => ({
     courses: [],
   }),
+  computed: {
+    ...mapState({
+      user: state => state.edu.user,
+    }),
+  },
   created() {
     axios
       .get('https://localhost:44382/api/courses')
@@ -42,12 +55,6 @@ export default {
         this.courses = response.data;
       })
       .catch(error => console.log(error));
-
-    const payload = {
-      email: 'ibrah@gmail.com',
-      password: 'P0wer@de22',
-    };
-    this.$store.dispatch('login', payload);
   },
 };
 </script>

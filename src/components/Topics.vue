@@ -1,10 +1,12 @@
 <template>
   <v-list color="transparent">
-    <v-list-item v-for="(topic, index) of topics" :key="index">
+    <v-list-item
+      v-for="(topic, index) of topics"
+      :key="index"
+      @click="getTopic(topic.topicID)"
+    >
       <v-list-item-content>
-        <v-btn text block @click="getTopic(topic.topicID)">{{
-          topic.topicTitle
-        }}</v-btn>
+        <p class="text-center mb-0 py-2">{{ topic.topicTitle }}</p>
       </v-list-item-content>
     </v-list-item>
   </v-list>
