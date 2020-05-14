@@ -10,7 +10,7 @@
       <v-list-item
         v-for="category of categories"
         :key="category.id"
-        @click="fetchTriviaQuestions(category.id)"
+        @click="goToTriviaPage(category.id)"
       >
         <v-list-item-content>
           <p class="text-center mb-0 py-2">{{ category.name }}</p>
@@ -24,7 +24,6 @@
 import axios from 'axios';
 export default {
   data: () => ({
-    triviaQuestions: [],
     categories: [
       {
         id: 9,
@@ -66,14 +65,8 @@ export default {
   }),
 
   methods: {
-    async fetchTriviaQuestions(id) {
-      try {
-        this.triviaQuestions = await axios.get(
-          `https://opentdb.com/api.php?amount=10&category=${id}&difficulty=${difficulty}&type=${type}`,
-        );
-      } catch (error) {
-        console.error(error);
-      }
+    goToTriviaPage(id) {
+      this.$router.push(`/trivia/${id}`);
     },
   },
 };

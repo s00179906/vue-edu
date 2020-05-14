@@ -18,6 +18,7 @@ export default {
     ...mapState({
       showNavbar: state => state.edu.showNavbar,
       user: state => state.edu.user,
+      userXP: state => state.edu.userXP,
     }),
   },
   created() {

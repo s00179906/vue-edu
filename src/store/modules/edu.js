@@ -6,6 +6,7 @@ const state = {
   showNavbar: false,
   userXP: 0,
   xpOfUsersLevel: 0,
+  showLoading: false,
 };
 
 const getters = {
@@ -60,7 +61,7 @@ const actions = {
       console.log(error);
     }
   },
-  async fetchUser({ commit }) {
+  async fetchUser({ commit, dispatch }) {
     try {
       const { UserId } = JSON.parse(localStorage.getItem('userInfo'));
       const { access_token } = JSON.parse(localStorage.getItem('auth'));
@@ -76,13 +77,17 @@ const actions = {
       );
 
       commit('setUserAuth', account.data);
+      dispatch('updateUserXP', {
+        userXP: state.user.XP,
+        userLevel: state.user.Level,
+      });
     } catch (error) {
       console.log(error);
     }
   },
-  async updateUserXP({ commit }) {
+  async updateUserXP({ commit }, payload) {
     const response = await axios.get(
-      `https://localhost:44382/api/account/level/${state.user.Level}`,
+      `https://localhost:44382/api/account/level/${payload.userLevel}`,
       {
         params: {},
         headers: {
@@ -93,13 +98,8 @@ const actions = {
       },
     );
     commit('setXPOfUsersLevel', response.data);
-    // if (state.user.XP === 0) state.user.XP = 25;
-    const value = (state.user.XP / response.data) * 100;
 
-    console.log(value);
-
-    // console.log('USERS XP RIGHT NOW', state.user.XP);
-    // console.log('HOW MUCH XP NEEDED TO LEVEL UP', response.data);
+    const value = (payload.userXP / response.data) * 100;
 
     commit('setUserXP', value);
   },
@@ -111,6 +111,7 @@ const mutations = {
   setUserXP: (state, value) => (state.userXP = value),
   resetXPBar: (state, value) => (state.userXP = value),
   setXPOfUsersLevel: (state, value) => (state.xpOfUsersLevel = value),
+  setShowLoading: (state, value) => (state.showLoading = value),
 };
 
 export default {

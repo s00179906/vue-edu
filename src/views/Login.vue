@@ -73,13 +73,17 @@ export default {
   },
   methods: {
     ...mapActions['login'],
-    loginUser() {
-      this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password,
-      });
-      this.$router.push({ path: '/' });
-      // this.$store.dispatch('updateUserXP');
+    async loginUser() {
+      this.$store
+        .dispatch('login', {
+          email: this.email,
+          password: this.password,
+        })
+        .then(res => {
+          this.$router.push({ name: 'Home' });
+
+          this.$store.commit('toggleNavbar', true);
+        });
     },
   },
 };

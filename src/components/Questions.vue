@@ -2,9 +2,7 @@
   <v-container>
     <v-row justify="space-between">
       <p class="title">Question. {{ questionIndexFixed() }}</p>
-      <v-btn color="success" text>
-        <v-icon>mdi-plus</v-icon>{{ choosenQuestion.XP }}</v-btn
-      >
+      <v-btn color="success" text>+25 XP</v-btn>
     </v-row>
 
     <v-row justify="center" align="center">
@@ -107,18 +105,19 @@ export default {
 
           this.$store.dispatch('fetchUser');
 
-          this.$store.dispatch('updateUserXP');
+          this.$store.dispatch('updateUserXP', {
+            userXP: this.user.XP,
+            userLevel: this.user.Level,
+          });
 
-          console.log(this.userXP);
-
-          if (this.user.Level === (this.user.Level += 1)) {
+          if (this.user.XP === 0 && this.user.Level !== 1) {
             Swal.fire({
               title: "You've leveled up!",
               width: 600,
               padding: '3em',
               background: '#fff url(/images/trees.png)',
               backdrop: `
-                      rgba(0,0,123,0.4)
+                      rgba(0,0,0,0.8)
                       url("/images/nyan-cat.gif")
                       left top
                       no-repeat

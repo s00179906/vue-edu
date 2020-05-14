@@ -1,38 +1,46 @@
 <template>
-  <v-app-bar dark color="primary">
-    <v-toolbar-title>
-      <v-btn @click="changeRoute('/')" text>
-        MyEdu.
-      </v-btn>
-    </v-toolbar-title>
-
-    <Levelbar v-if="user" />
-
-    <v-btn outlined color="info" class="mx-2" @click="createNewQuestion">
-      New Question
-    </v-btn>
-
-    <v-btn
-      outlined
-      color="purple"
-      class="mx-2"
-      @click="changeRoute('/achievements')"
-    >
-      Achievements
-    </v-btn>
-
-    <v-menu left bottom>
-      <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on">
-          <v-icon>mdi-dots-vertical</v-icon>
+  <div>
+    <v-app-bar app dark color="primary">
+      <v-toolbar-title>
+        <v-btn @click="changeRoute('/home')" text>
+          MyEdu.
         </v-btn>
-      </template>
+      </v-toolbar-title>
 
-      <v-list color="red">
-        <Logout />
-      </v-list>
-    </v-menu>
-  </v-app-bar>
+      <Levelbar v-if="user" />
+
+      <v-btn outlined color="info" class="mx-2" @click="createNewQuestion">
+        New Question
+      </v-btn>
+
+      <v-btn
+        outlined
+        color="purple"
+        class="mx-2"
+        @click="changeRoute('/achievements')"
+      >
+        Achievements
+      </v-btn>
+
+      <v-menu left bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list color="red">
+          <Logout />
+        </v-list>
+      </v-menu>
+    </v-app-bar>
+
+    <v-progress-linear
+      v-if="showLoading"
+      indeterminate
+      color="purple darken-2"
+    ></v-progress-linear>
+  </div>
 </template>
 
 <script>
@@ -121,6 +129,7 @@ export default {
   computed: {
     ...mapState({
       user: state => state.edu.user,
+      showLoading: state => state.edu.showLoading,
     }),
   },
 };

@@ -26,9 +26,6 @@ export default {
       userXP: state => state.edu.userXP,
     }),
   },
-  created() {
-    this.$store.dispatch('updateUserXP');
-  },
   methods: {
     nextLevel() {
       return this.user.Level + 1;

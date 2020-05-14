@@ -4,7 +4,7 @@
       <v-list-item
         v-for="(a, index) in achievements"
         :key="index"
-        :disabled="hasUserUnlocked(a.UnlockedAtLevel)"
+        :disabled="hasUserUnlocked(a)"
       >
         <v-list-item-content>
           <v-list-item-title v-text="a.Title"></v-list-item-title>
@@ -42,10 +42,10 @@ export default {
       .catch(error => console.log(error));
   },
   methods: {
-    hasUserUnlocked(unlockLevel) {
-      if (this.user.Level == unlockLevel) {
+    hasUserUnlocked(a) {
+      if (this.user.Level >= a.UnlockedAtLevel) {
         Swal.fire({
-          title: "Hurray you've unlocked",
+          title: `Hurray you've unlocked ${a.Title}`,
           width: 600,
           backdrop: `
           rgba(0,0,0,0.8)

@@ -7,6 +7,7 @@ import Login from '../views/Login.vue';
 import Topic from '../views/Topic.vue';
 import Register from '../views/Register.vue';
 import Achievements from '../views/Achievements.vue';
+import Trivia from '../views/Trivia.vue';
 
 import VueSpeech from 'vue-speech';
 import VueTextToSpeech from 'vue-text-to-speech';
@@ -17,10 +18,12 @@ Vue.use(VueTextToSpeech);
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
-    beforeEnter: guardMyroute,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/register',
@@ -36,13 +39,16 @@ const routes = [
     path: '/achievements',
     name: 'Achievements',
     component: Achievements,
-    beforeEnter: guardMyroute,
   },
   {
     path: '/topic/:id',
     name: 'Topic',
     component: Topic,
-    beforeEnter: guardMyroute,
+  },
+  {
+    path: '/trivia/:id',
+    name: 'Trivia',
+    component: Trivia,
   },
 ];
 
@@ -52,10 +58,16 @@ const router = new VueRouter({
   routes,
 });
 
-function guardMyroute(to, from, next) {
-  let isAuthenticated = localStorage.hasOwnProperty('auth');
+router.beforeEach((to, from, next) => {
+  let isAuthenticated = !!localStorage.getItem('auth');
 
-  isAuthenticated ? next() : next('/login');
-}
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated) next({ name: 'Login' });
+    else next();
+  } else next();
+
+  // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' });
+  // else next();
+});
 
 export default router;
