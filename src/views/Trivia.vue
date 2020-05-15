@@ -106,6 +106,7 @@ export default {
             this.choosenType
           }`;
 
+          console.log(this.choosenType);
           const { data } = await axios.get(url);
 
           this.triviaQuestions = data.results;

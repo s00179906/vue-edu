@@ -110,19 +110,24 @@ export default {
 
         console.log(data);
 
-        axios.post('https://localhost:44382/api/questions/create', data).then(
-          response => {
-            console.log(response);
-            Swal.fire(
-              'Good job!',
-              'Your question has been Created!',
-              'success',
-            );
-          },
-          error => {
-            console.log(error);
-          },
-        );
+        axios
+          .post(
+            'https://edu20200515000357.azurewebsites.net/api/questions/create',
+            data,
+          )
+          .then(
+            response => {
+              console.log(response);
+              Swal.fire(
+                'Good job!',
+                'Your question has been Created!',
+                'success',
+              );
+            },
+            error => {
+              console.log(error);
+            },
+          );
       }
     },
   },

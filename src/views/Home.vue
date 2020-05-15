@@ -50,7 +50,7 @@ export default {
   },
   created() {
     axios
-      .get('https://localhost:44382/api/courses')
+      .get('https://edu20200515000357.azurewebsites.net/api/courses')
       .then(response => {
         this.courses = response.data;
       })

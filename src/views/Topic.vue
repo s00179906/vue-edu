@@ -17,7 +17,9 @@ export default {
   created() {
     this.topicID = this.$route.params.id;
     axios
-      .get(`https://localhost:44382/api/questions/topic/${this.topicID}`)
+      .get(
+        `https://edu20200515000357.azurewebsites.net/api/questions/topic/${this.topicID}`,
+      )
       .then(response => (this.questions = response.data))
       .catch(error => console.log(error));
   },

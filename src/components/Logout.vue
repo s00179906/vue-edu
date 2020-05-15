@@ -10,7 +10,7 @@ export default {
     logout() {
       localStorage.clear();
       this.$store.commit('toggleNavbar', false);
-      this.$router.push({ path: '/login' });
+      this.$router.push({ name: 'Login' });
     },
   },
 };

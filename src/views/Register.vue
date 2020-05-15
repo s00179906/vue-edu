@@ -12,15 +12,6 @@
     <v-row justify="center">
       <v-col cols="12" md="5" sm="8" xs="8">
         <p class="display-2 font-weight-medium pb-3">Register today.</p>
-
-        <!-- <v-text-field
-          outlined
-          v-model="fullName"
-          dark
-          color="purple"
-          label="Full Name"
-        ></v-text-field> -->
-
         <v-form>
           <v-text-field
             outlined
@@ -65,7 +56,7 @@
             block
             @click="register"
             :disabled="!validateForm"
-            >Let's Go</v-btn
+            >Register 🚀</v-btn
           >
         </v-form>
       </v-col>
@@ -111,15 +102,17 @@ export default {
   },
   methods: {
     register() {
+      const hostedUrl =
+        'https://edu20200515000357.azurewebsites.net/api/account/register';
       axios
-        .post('https://localhost:44382/api/account/register', {
+        .post(hostedUrl, {
           Email: this.email,
           Password: this.password,
           ConfirmPassword: this.confirmPassword,
         })
         .then(response => {
           this.sweetAlert('success', 'Hurray!', response.data);
-          this.$router.push({ path: 'login' });
+          this.$router.push({ name: 'Login' });
         })
         .catch(error => {
           console.log(error.response.data.ModelState);

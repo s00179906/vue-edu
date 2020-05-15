@@ -18,7 +18,7 @@ import axios from 'axios';
 export default {
   created() {
     axios
-      .get('https://localhost:44382/api/topics')
+      .get('https://edu20200515000357.azurewebsites.net/api/topics')
       .then(response => {
         this.topics = response.data;
       })

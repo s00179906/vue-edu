@@ -6,7 +6,7 @@
 export default {
   methods: {
     register() {
-      this.$router.push({ path: '/register' });
+      this.$router.push({ name: 'Register' });
     },
   },
 };

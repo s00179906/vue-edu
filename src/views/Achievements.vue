@@ -34,7 +34,7 @@ export default {
   },
   created() {
     axios
-      .get('https://localhost:44382/api/achievements')
+      .get('https://edu20200515000357.azurewebsites.net/api/achievements')
       .then(response => {
         this.achievements = response.data;
         console.log(this.achievements);

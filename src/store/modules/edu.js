@@ -21,10 +21,12 @@ const actions = {
       password: payload.password,
       grant_type: 'password',
     });
+    const url = 'https://localhost:44382/token';
+    const hostedUrl = 'https://edu20200515000357.azurewebsites.net/token';
 
     const options = {
       method: 'post',
-      url: 'https://localhost:44382/token',
+      url: hostedUrl,
       data,
       headers: {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -37,10 +39,13 @@ const actions = {
       localStorage.setItem('auth', JSON.stringify(auth.data));
 
       const userInfo = await axios
-        .get('https://localhost:44382/api/account/userinfo', {
-          params: {},
-          headers: { Authorization: `Bearer ${auth.data.access_token}` },
-        })
+        .get(
+          'https://edu20200515000357.azurewebsites.net/api/account/userinfo',
+          {
+            params: {},
+            headers: { Authorization: `Bearer ${auth.data.access_token}` },
+          },
+        )
         .catch(error => {
           console.log(error);
         });
@@ -48,10 +53,13 @@ const actions = {
       localStorage.setItem('userInfo', JSON.stringify(userInfo.data));
 
       const account = await axios
-        .get(`https://localhost:44382/api/account/${userInfo.data.UserId}`, {
-          params: {},
-          headers: { Authorization: `Bearer ${auth.data.access_token}` },
-        })
+        .get(
+          `https://edu20200515000357.azurewebsites.net/api/account/${userInfo.data.UserId}`,
+          {
+            params: {},
+            headers: { Authorization: `Bearer ${auth.data.access_token}` },
+          },
+        )
         .catch(error => {
           console.log(error);
         });
@@ -67,7 +75,7 @@ const actions = {
       const { access_token } = JSON.parse(localStorage.getItem('auth'));
 
       const account = await axios.get(
-        `https://localhost:44382/api/account/${UserId}`,
+        `https://edu20200515000357.azurewebsites.net/api/account/${UserId}`,
         {
           params: {},
           headers: {
@@ -87,7 +95,7 @@ const actions = {
   },
   async updateUserXP({ commit }, payload) {
     const response = await axios.get(
-      `https://localhost:44382/api/account/level/${payload.userLevel}`,
+      `https://edu20200515000357.azurewebsites.net/api/account/level/${payload.userLevel}`,
       {
         params: {},
         headers: {

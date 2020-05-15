@@ -91,13 +91,13 @@ export default {
       }
     },
     backToCourses() {
-      this.$router.push({ path: '/' });
+      this.$router.push({ name: 'Home' });
     },
     async answerQuestion() {
       if (this.answer === this.choosenQuestion.correctAnswer) {
         try {
           const response = await axios.post(
-            `https://localhost:44382/api/questions/answer/${this.choosenQuestion.questionID}?userId=${this.user.Id}&answer=${this.answer}`,
+            `https://edu20200515000357.azurewebsites.net/api/questions/answer/${this.choosenQuestion.questionID}?userId=${this.user.Id}&answer=${this.answer}`,
           );
           this.presentToast('success', 'Correct Answer 🙂');
           this.nextQuestion();
